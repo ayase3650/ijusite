@@ -36,7 +36,7 @@
 
         /* 魅力紹介ブロック */
         .charm-block { background: var(--white); border-radius: 20px; padding: 40px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(26, 54, 93, 0.05); display: flex; align-items: center; gap: 40px; }
-        .charm-block:nth-child(even) { flex-direction: row-reverse; } /* 交互に左右を入れ替え */
+        .charm-block:nth-child(even) { flex-direction: row-reverse; }
         
         .charm-text { flex: 1; }
         .charm-label { display: inline-block; background-color: var(--bg-light-blue); color: var(--btn-color); font-size: 0.75rem; font-weight: bold; padding: 4px 12px; border-radius: 20px; margin-bottom: 15px; }
@@ -56,6 +56,94 @@
             .container { padding: 40px 4%; }
             .charm-block, .charm-block:nth-child(even) { flex-direction: column-reverse; padding: 30px; gap: 25px; }
             .charm-heading { font-size: 1.2rem; }
+        }
+        
+        /* ＝＝＝ 吹き出しとアイコンのデザイン ＝＝＝ */
+        .concierge-icon {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 65px;
+            height: 65px;
+            background-color: #f28b82;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 9999;
+            cursor: pointer;
+        }
+
+        .chat-bubble {
+            position: fixed;
+            bottom: 42px;
+            right: 110px;
+            background-color: #ffffff;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            font-weight: bold;
+            font-size: 14px;
+            color: #333;
+            z-index: 9999;
+            cursor: pointer;
+            line-height: 1.5;
+            animation: none !important;
+            transition: none !important;
+        }
+
+        .chat-bubble::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -12px;
+            transform: translateY(-50%);
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            border-left: 12px solid #ffffff;
+        }
+
+        /* ＝＝＝ チャット画面のデザイン ＝＝＝ */
+        .chat-window {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            width: 350px;
+            height: 500px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 9999;
+        }
+
+        .chat-header {
+            background-color: #4a6da7;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .chat-close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .chat-iframe {
+            width: 100%;
+            flex-grow: 1;
+            border: none;
         }
     </style>
 </head>
@@ -109,6 +197,7 @@
                 </div>
             </div>
 
+            <!-- 戻るボタン -->
             <div class="btn-back-wrapper">
                 <a href="index.html" class="btn-back">
                     <i class="fa-solid fa-arrow-left"></i> ポータルサイトへ戻る
@@ -117,5 +206,56 @@
         </main>
     </div>
 
+    <!-- ＝＝＝ チャットUI（吹き出し＋アイコン） ＝＝＝ -->
+    <div class="chat-bubble" id="chatBubble">
+        あなたが対象になるか<br>簡単診断しませんか？
+    </div>
+
+    <div class="concierge-icon" id="chatTrigger">
+        <i class="fa-solid fa-headset"></i>
+    </div>
+
+    <!-- ＝＝＝ チャット画面本体 ＝＝＝ -->
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            移住支援ボット
+            <button class="chat-close-btn" id="chatCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <iframe src="https://shimonosekicity.github.io/subsidy-chatbot/" class="chat-iframe" title="移住相談チャットボット"></iframe>
+    </div>
+
+    <!-- ＝＝＝ チャットボットを開閉するプログラム ＝＝＝ -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatTrigger = document.getElementById('chatTrigger');
+            const chatBubble = document.getElementById('chatBubble');
+            const chatWindow = document.getElementById('chatWindow');
+            const chatCloseBtn = document.getElementById('chatCloseBtn');
+
+            // 画面を開く関数
+            function openChat() {
+                if(chatWindow) {
+                    chatWindow.style.display = 'flex';
+                }
+            }
+
+            // アイコンをクリックしたら開く
+            if(chatTrigger) {
+                chatTrigger.addEventListener('click', openChat);
+            }
+
+            // 吹き出しをクリックしても開く
+            if(chatBubble) {
+                chatBubble.addEventListener('click', openChat);
+            }
+
+            // バツボタンをクリックしたら閉じる
+            if(chatCloseBtn && chatWindow) {
+                chatCloseBtn.addEventListener('click', function() {
+                    chatWindow.style.display = 'none';
+                });
+            }
+        });
+    </script>
 </body>
 </html>
