@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>よくある質問 - SHIMONOSEKI LIFE</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-light-blue: #e6f0fa;
+            --text-navy: #1a365d;
+            --accent-blue: #89b4e0;
+            --white: #ffffff;
+            --btn-color: #4a709c;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            background-color: var(--bg-light-blue);
+            color: var(--text-navy);
+            line-height: 1.8;
+            letter-spacing: 0.08em;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 60px 4%; }
+
+        /* ヘッダー */
+        .page-header { text-align: center; margin-bottom: 50px; }
+        .page-title { font-size: 2rem; font-weight: 300; color: var(--btn-color); margin-bottom: 10px; letter-spacing: 0.1em; }
+        .page-title span { display: block; font-size: 0.9rem; font-weight: bold; color: var(--accent-blue); margin-top: 5px; letter-spacing: 0.15em; }
+
+        /* カテゴリー見出し */
+        .faq-category {
+            font-size: 1.3rem;
+            color: var(--btn-color);
+            margin: 50px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-blue);
+            font-weight: bold;
+        }
+        .faq-category:first-of-type { margin-top: 0; }
+
+        /* FAQアコーディオンのデザイン */
+        .faq-item {
+            background-color: var(--white);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(26, 54, 93, 0.05);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item[open] { box-shadow: 0 10px 30px rgba(26, 54, 93, 0.1); }
+
+        .faq-question {
+            padding: 22px 30px;
+            font-weight: bold;
+            font-size: 1.05rem;
+            color: var(--text-navy);
+            cursor: pointer;
+            list-style: none;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question::-webkit-details-marker { display: none; }
+
+        .faq-question::after {
+            content: '＋';
+            font-size: 1.2rem;
+            color: var(--btn-color);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item[open] .faq-question::after {
+            transform: rotate(45deg);
+            color: #ff6b6b;
+        }
+
+        .faq-answer {
+            padding: 0 30px 25px 30px;
+            font-size: 0.95rem;
+            color: #555555;
+            line-height: 1.8;
+            border-top: 1px solid #e6f0fa;
+            padding-top: 20px;
+        }
+
+        /* 戻るボタン */
+        .btn-back-wrapper { text-align: center; margin-top: 60px; }
+        .btn-back { display: inline-flex; align-items: center; gap: 10px; background-color: var(--btn-color); color: var(--white); padding: 14px 40px; border-radius: 30px; font-size: 0.9rem; font-weight: bold; text-decoration: none; transition: 0.3s; box-shadow: 0 5px 15px rgba(74, 112, 156, 0.3); }
+        .btn-back:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(74, 112, 156, 0.4); }
+
+        /* ＝＝＝ チャットUIのデザイン ＝＝＝ */
+        .concierge-icon { position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; background-color: #ff6b6b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 9999; cursor: pointer; }
+        .chat-bubble { position: fixed; bottom: 42px; right: 110px; background-color: #ffffff; padding: 15px 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-weight: bold; font-size: 14px; color: #333; z-index: 9999; cursor: pointer; line-height: 1.5; }
+        .chat-bubble::after { content: ''; position: absolute; top: 50%; right: -12px; transform: translateY(-50%); border-top: 12px solid transparent; border-bottom: 12px solid transparent; border-left: 12px solid #ffffff; }
+      .chat-window {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            width: 400px;
+            height: 650px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: none; /* 🌟 これが「最初は隠す」という大切な設定です！ */
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 9999;
+        }
+        .chat-header { background-color: #4a6da7; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; }
+        .chat-close-btn { background: none; border: none; color: white; font-size: 18px; cursor: pointer; }
+        .chat-iframe { width: 100%; flex-grow: 1; border: none; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header class="page-header">
+            <h1 class="page-title">FAQ<span>よくある質問</span></h1>
+        </header>
+
+        <main>
+            <!-- ① 窓口・申請について -->
+            <h2 class="faq-category">① 窓口・申請について</h2>
+            <details class="faq-item">
+                <summary class="faq-question">申請書類はLiveHUBしものせきに持っていけば申請完了ですか？</summary>
+                <div class="faq-answer">
+                    <p>いいえ、LiveHUBしものせきに持ってきても申請完了にはなりません。申請書は市役所・県庁へ提出してください。<br>
+                    ただし、YY！ターン支援交通費補助の実施報告書は LiveHUBしものせきにご提出ください。</p>
+                </div>
+            </details>
+            <details class="faq-item">
+                <summary class="faq-question">不動産の紹介はしてくれますか？</summary>
+                <div class="faq-answer">
+                    <p>LiveHUBしものせきは不動産を紹介する場所ではありません。移住に関する支援制度のご案内等を行う窓口です。また、先輩移住者からの意見を聞きたい等があればお繋ぎすることもできます。</p>
+                </div>
+            </details>
+            <details class="faq-item">
+                <summary class="faq-question">補助金申請はいつしたらいいですか？</summary>
+                <div class="faq-answer">
+                    <p>各種補助金で申請タイミングは異なります。要綱・HPをご確認のうえ申請してください。</p>
+                </div>
+            </details>
+
+            <!-- ② 住まいに関する補助金 -->
+            <h2 class="faq-category">② 住まいに関する補助金</h2>
+            <details class="faq-item">
+                <summary class="faq-question">家賃の補助はありますか？</summary>
+                <div class="faq-answer">
+                    <p>「下関暮らしサポート事業」があります。移住相談窓口等を通じてUJIターンした、世帯主が39歳以下の世帯、または中学生以下の子どもがいる世帯を対象に、最長2年間の家賃の一部を助成しています。こちらの補助を受けるには窓口で２回以上相談をする必要があります。</p>
+                </div>
+            </details>
+            <details class="faq-item">
+                <summary class="faq-question">家を買う時の補助はありますか？</summary>
+                <div class="faq-answer">
+                    <p>「住宅取得支援事業」がございます。市外から転入し、市内に住宅を建築・購入される場合、最大100万円（特定の条件を満たせばさらに加算あり）を補助します。</p>
+                </div>
+            </details>
+            <details class="faq-item">
+                <summary class="faq-question">住宅ローンの利子補給はありますか？</summary>
+                <div class="faq-answer">
+                    <p>「やまぐち若者定住応援事業」があり、29歳以下の若者が住宅を取得した場合、住宅ローンの返済利息の一部を補助する制度がございます。</p>
+                </div>
+            </details>
+
+            <!-- ③ 移住支援金 -->
+            <h2 class="faq-category">③ 移住支援金</h2>
+            <details class="faq-item">
+                <summary class="faq-question">東京から移住するとお金がもらえると聞きました。</summary>
+                <div class="faq-answer">
+                    <p>東京23区に在住または通勤していた方が下関市へ移住し、就業や創業などの要件を満たす場合、単身で60万円、世帯で100万円（18歳未満の帯同者1人につき100万円加算）の「移住支援金」が支給される可能性があります。<br>
+                   <span style="color: red;">※要件は細かく定められています。受給を約束するものではなく、詳細は要綱・HPでご確認ください。</span></a>
+                </div>
+            </details>
+
+            <!-- ④ 子育て・家庭支援 -->
+            <h2 class="faq-category">④ 子育て・家庭支援</h2>
+            <details class="faq-item">
+                <summary class="faq-question">子どもの医療費の助成はありますか？</summary>
+                <div class="faq-answer">
+                    <p>下関市では、高校生年代までのすべてのお子様を対象に、医療保険適用の自己負担分を全額助成（完全無償化）しています。</p>
+                </div>
+            </details>
+            <details class="faq-item">
+                <summary class="faq-question">出産に対するお祝い金はありますか？</summary>
+                <div class="faq-answer">
+                    <p>特定の地域（豊田・豊浦・豊北地区など）に居住する市民が第3子以降を出産した場合、「出産祝い金」として1人につき20万円を支給する制度がございます。</p>
+                </div>
+            </details>
+
+            <!-- ⑤ 移住準備・その他 -->
+            <h2 class="faq-category">⑤ 移住準備・その他</h2>
+            <details class="faq-item">
+                <summary class="faq-question">移住前に下関の暮らしを体験できますか？</summary>
+                <div class="faq-answer">
+                    <p>2泊3日から4泊5日まで、宿泊料無料で利用できる「お試し暮らし」制度がございます（40歳未満の方が１人でも含まれる世帯が対象）。</p>
+                </div>
+            </details>
+            <details class="faq-item">
+                <summary class="faq-question">引っ越し代の割引などはありますか？</summary>
+                <div class="faq-answer">
+                    <p>山口県外から移住を検討されている方向けの「やまぐちYY！ターンパスポート」を利用することで、協賛企業による引越料金の割引やレンタカー代の割引などの特典を受けられます。</p>
+                </div>
+            </details>
+            <details class="faq-item">
+                <summary class="faq-question">交通費の補助があると聞きました</summary>
+                <div class="faq-answer">
+                    <p>YY!ターン支援交通費補助金と言う制度がございます。<br>公共交通機関で発生した費用の一部を補助します。</p>
+                </div>
+            </details>
+
+            <!-- 戻るボタン -->
+            <div class="btn-back-wrapper">
+                <a href="index.html" class="btn-back">
+                    <i class="fa-solid fa-arrow-left"></i> ポータルサイトへ戻る
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <!-- チャットUI -->
+    <div class="chat-bubble" id="chatBubble">
+        あなたが対象になるか<br>簡単診断しませんか？
+    </div>
+    <div class="concierge-icon" id="chatTrigger">
+        <i class="fa-solid fa-headset"></i>
+    </div>
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            移住支援ボット
+            <button class="chat-close-btn" id="chatCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+       <iframe src="https://shimonosekicity.github.io/subsidy-chatbot/?node=migration" class="chat-iframe" title="移住相談チャットボット"></iframe>
+    </div>
+
+    <!-- チャットボット開閉プログラム -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatTrigger = document.getElementById('chatTrigger');
+            const chatBubble = document.getElementById('chatBubble');
+            const chatWindow = document.getElementById('chatWindow');
+            const chatCloseBtn = document.getElementById('chatCloseBtn');
+
+            function openChat() {
+                if(chatWindow) { chatWindow.style.display = 'flex'; }
+            }
+
+            if(chatTrigger) { chatTrigger.addEventListener('click', openChat); }
+            if(chatBubble) { chatBubble.addEventListener('click', openChat); }
+            if(chatCloseBtn && chatWindow) {
+                chatCloseBtn.addEventListener('click', function() {
+                    chatWindow.style.display = 'none';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
