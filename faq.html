@@ -98,10 +98,23 @@
         .btn-back:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(74, 112, 156, 0.4); }
 
         /* ＝＝＝ チャットUIのデザイン ＝＝＝ */
-        .concierge-icon { position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; background-color: #f28b82; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 9999; cursor: pointer; }
+        .concierge-icon { position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; background-color: #ff6b6b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 9999; cursor: pointer; }
         .chat-bubble { position: fixed; bottom: 42px; right: 110px; background-color: #ffffff; padding: 15px 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-weight: bold; font-size: 14px; color: #333; z-index: 9999; cursor: pointer; line-height: 1.5; }
         .chat-bubble::after { content: ''; position: absolute; top: 50%; right: -12px; transform: translateY(-50%); border-top: 12px solid transparent; border-bottom: 12px solid transparent; border-left: 12px solid #ffffff; }
-        .chat-window { position: fixed; bottom: 110px; right: 30px; width: 350px; height: 500px; background-color: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); display: none; flex-direction: column; overflow: hidden; z-index: 9999; }
+      .chat-window {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            width: 400px;
+            height: 650px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: none; /* 🌟 これが「最初は隠す」という大切な設定です！ */
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 9999;
+        }
         .chat-header { background-color: #4a6da7; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; }
         .chat-close-btn { background: none; border: none; color: white; font-size: 18px; cursor: pointer; }
         .chat-iframe { width: 100%; flex-grow: 1; border: none; }
@@ -164,7 +177,7 @@
                 <summary class="faq-question">東京から移住するとお金がもらえると聞きました。</summary>
                 <div class="faq-answer">
                     <p>東京23区に在住または通勤していた方が下関市へ移住し、就業や創業などの要件を満たす場合、単身で60万円、世帯で100万円（18歳未満の帯同者1人につき100万円加算）の「移住支援金」が支給される可能性があります。<br>
-                    <strong>（注意）</strong>要件は細かく定められています。受給を約束するものではなく、詳細は要綱・HPでご確認ください。</p>
+                   <span style="color: red;">※要件は細かく定められています。受給を約束するものではなく、詳細は要綱・HPでご確認ください。</span></a>
                 </div>
             </details>
 
@@ -225,7 +238,7 @@
             移住支援ボット
             <button class="chat-close-btn" id="chatCloseBtn"><i class="fa-solid fa-xmark"></i></button>
         </div>
-        <iframe src="https://shimonosekicity.github.io/subsidy-chatbot/" class="chat-iframe" title="移住相談チャットボット"></iframe>
+       <iframe src="https://shimonosekicity.github.io/subsidy-chatbot/?node=migration" class="chat-iframe" title="移住相談チャットボット"></iframe>
     </div>
 
     <!-- チャットボット開閉プログラム -->

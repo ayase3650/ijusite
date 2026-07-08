@@ -65,7 +65,7 @@
             right: 30px;
             width: 65px;
             height: 65px;
-            background-color: #f28b82;
+            background-color: #ff6b6b;
             color: white;
             border-radius: 50%;
             display: flex;
@@ -107,21 +107,20 @@
         }
 
         /* ＝＝＝ チャット画面のデザイン ＝＝＝ */
-        .chat-window {
+       .chat-window {
             position: fixed;
             bottom: 110px;
             right: 30px;
-            width: 350px;
-            height: 500px;
+            width: 400px;
+            height: 650px;
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            display: none;
+            display: none; /* 🌟 これが「最初は隠す」という大切な設定です！ */
             flex-direction: column;
             overflow: hidden;
             z-index: 9999;
         }
-
         .chat-header {
             background-color: #4a6da7;
             color: white;
@@ -221,7 +220,7 @@
             移住支援ボット
             <button class="chat-close-btn" id="chatCloseBtn"><i class="fa-solid fa-xmark"></i></button>
         </div>
-        <iframe src="https://shimonosekicity.github.io/subsidy-chatbot/" class="chat-iframe" title="移住相談チャットボット"></iframe>
+       <iframe src="https://shimonosekicity.github.io/subsidy-chatbot/?node=migration" class="chat-iframe" title="移住相談チャットボット"></iframe>
     </div>
 
     <!-- ＝＝＝ チャットボットを開閉するプログラム ＝＝＝ -->

@@ -119,12 +119,14 @@ body {
         @keyframes floatUp { 0% { transform: translateY(50px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
 
         /* チャットウィンドウ（パソコン用） */
+        /* チャットウィンドウ（パソコン用） */
+       /* チャットウィンドウ（パソコン用） */
         .chat-window { 
             position: fixed; 
             bottom: 110px; 
             right: 30px; 
-            width: 380px; 
-            height: 550px; 
+            width: 400px; 
+            height: 650px; 
             background-color: var(--white); 
             border-radius: 20px; 
             box-shadow: 0 15px 40px rgba(26, 54, 93, 0.15); 
@@ -369,7 +371,7 @@ body {
                 <li><a href="#support">SUPPORT</a></li>
                 <li><a href="#consult">CONSULT</a></li>
                 <li><a href="#movie">MOVIE</a></li>
-                <a href="faq.html">FAQ</a>
+                <li><a href="faq.html">FAQ</a></li>
             </ul>
         </nav>
     </header>
@@ -439,14 +441,14 @@ body {
                     <div class="card">
                         <div class="card-icon"><i class="fa-solid fa-house-circle-check"></i></div>
                         <h4>住宅取得支援事業</h4>
-                        <div class="price-highlight">1世帯 <span>10</span>万円</div>
+                        <div class="price-highlight">1世帯 <span>30</span>万円〜</div>
                         <p>下関市への移住、または市内の指定エリアへの住み替えを検討されている方を対象に、ご自身が居住するマイホーム（新築・中古・マンション含む）の建築や購入にかかる費用の一部を補助する制度です。</p>
                         <a href="https://www.city.shimonoseki.lg.jp/soshiki/70/134729.html" target="_blank" rel="noopener noreferrer" class="btn-detail">詳しく見る</a>
                     </div>
                     <div class="card">
                         <div class="card-icon"><i class="fa-solid fa-house-user"></i></div>
                         <h4>暮らしサポート補助金<br>（家賃補助）</h4>
-                        <div class="price-highlight">月額最大 <span>2</span>万円</div>
+                        <div class="price-highlight">月額 <span>１</span>万円〜</div>
                         <p>移住相談窓口等を通じてUIJターンした若者（世帯主が39歳以下）や子育て世帯（中学生以下）に対し、最長2年間の家賃の一部を助成し、新生活を後押しします。</p>
                         <a href="https://www.shimonosekicitypromotion.jp/123148.html" target="_blank" rel="noopener noreferrer" class="btn-detail">詳しく見る</a>
                     </div>
@@ -525,7 +527,7 @@ body {
                 <summary class="faq-question">東京から移住するとお金がもらえると聞きました。</summary>
                 <div class="faq-answer">
                     <p>東京23区に在住または通勤していた方が下関市へ移住し、就業や創業などの要件を満たす場合、単身で60万円、世帯で100万円（18歳未満の帯同者1人につき100万円加算）の「移住支援金」が支給される可能性があります。<br>
-                    <strong>（注意）</strong>要件は細かく定められています。受給を約束するものではなく、詳細は要綱・HPでご確認ください。</p>
+                   <span style="color: red;">※要件は細かく定められています。受給を約束するものではなく、詳細は要綱・HPでご確認ください。</span></p>
                 </div>
             </details>
 
@@ -556,9 +558,8 @@ body {
             <h2 class="section-title">CONSULTATION<br><span style="font-size: 0.85rem; font-weight: normal; color: var(--accent-blue); letter-spacing: 0.1em; display: block; margin-top: 10px;">ご相談・お問い合わせ</span></h2>
             <p class="consult-desc">移住に関する疑問や不安なことなど、お気軽にご相談ください。</p>
             <div class="consult-buttons">
-                <a href="https://shimonoseki.works-go.com/form/f635312/" target="_blank" rel="noopener noreferrer" class="btn-consult btn-mail">
-    <i class="fa-regular fa-envelope"></i>メールフォームで相談
-</a>
+              <a href="https://shimonoseki.works-go.com/form/f635312/" target="_blank" rel="noopener noreferrer" class="btn-consult btn-mail">
+                    <i class="fa-regular fa-envelope"></i>メールフォームで相談
                 </a>
                 <a href="https://page.line.me/932vzzcc?openQrModal=true" target="_blank" rel="noopener noreferrer" class="btn-consult btn-line">
     <i class="fa-brands fa-line"></i>LINEチャットボットで相談
@@ -594,7 +595,7 @@ body {
             移住支援ボット
             <button class="chat-close-btn" id="chatCloseBtn"><i class="fa-solid fa-xmark"></i></button>
         </div>
-        <iframe src="https://shimonosekicity.github.io/subsidy-chatbot/" class="chat-iframe" title="移住相談チャットボット"></iframe>
+  <iframe src="https://shimonosekicity.github.io/subsidy-chatbot/?node=migration" class="chat-iframe" title="移住相談チャットボット"></iframe>
     </div>
 
     <script>
