@@ -7,7 +7,6 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    
     <style>
         html { scroll-behavior: smooth; }
 
@@ -30,6 +29,7 @@
             color: var(--text-navy);
             line-height: 1.7;
             letter-spacing: 0.08em;
+            padding-top: 135px; /* 🌟 追従バナーとヘッダーが固定される分の余白 */
         }
 
         a { text-decoration: none; color: inherit; transition: 0.3s; }
@@ -38,27 +38,100 @@
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 4%; }
 
-      header {
-    /* ＝＝＝ 元の「横並び」を維持するための設定 ＝＝＝ */
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* ロゴとメニューを左右に分ける設定 */
-    padding: 15px 40px; /* 必要に応じて元の余白に合わせてください */
+        /* ＝＝＝ 🌟 新設：最上部 移住相談ショートカットバナー（追従型） ＝＝＝ */
+        .top-shortcut-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--text-navy);
+            color: var(--white);
+            z-index: 1005; /* ヘッダーよりさらに前面に表示 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            gap: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
 
-    /* ＝＝＝ ヘッダーを固定するための設定 ＝＝＝ */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: #ffffff;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
+        .banner-text i { color: var(--accent-blue); margin-right: 5px; }
 
-/* ★追加：ヘッダーが固定された分、下のコンテンツが隠れないように余白を作る */
-body {
-    padding-top: 80px; /* ヘッダーの高さに合わせて数字は調整してください */
-}
+        .btn-banner-nav {
+            background-color: var(--highlight);
+            color: var(--white);
+            padding: 6px 22px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-banner-nav:hover {
+            background-color: #ff4a4a;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(255, 107, 107, 0.5);
+        }
+
+        /* 固定ヘッダーの設定 */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 40px;
+            position: fixed;
+            top: 48px; /* 🌟 追従バナーの高さ分だけ下にずらして固定 */
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: top 0.3s ease;
+        }
+
+        /* メニューを横一列にする設定 */
+        header nav ul {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+        }
+
+        header li { display: inline-block !important; }
+        header a { font-size: 1.1rem !important; font-weight: bold !important; }
+
+        /* ヒーローセクション */
+        .hero-section {
+            height: 60vh;
+            background-image: url('shimonoseki_top.jpg'); 
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content { position: relative; z-index: 1; }
+        .hero-content h2 { font-size: 2.5rem; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.6); }
+        .hero-content p { font-size: 1.1rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.6); }
 
         /* ABOUTセクション */
         .about-section { margin-bottom: 100px; padding: 0 4%; }
@@ -71,6 +144,20 @@ body {
         .btn-text { display: inline-block; font-weight: bold; color: var(--btn-color); font-size: 0.85rem; border-bottom: 2px solid var(--btn-color); padding-bottom: 3px; }
         .about-image { flex: 1; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 40px rgba(26, 54, 93, 0.08); }
         .about-image img { width: 100%; height: auto; display: block; object-fit: cover; }
+
+        /* 案C：STEPヘッダーのデザイン */
+        .step-wrapper { text-align: center; margin-bottom: 20px; }
+        .step-header {
+            display: inline-block;
+            background-color: var(--text-navy);
+            color: var(--white);
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 10px 40px;
+            border-radius: 30px;
+            letter-spacing: 0.1em;
+            box-shadow: 0 5px 15px rgba(26, 54, 93, 0.2);
+        }
 
         /* 支援制度セクション */
         .support-section { background: var(--white); border-radius: 20px; padding: 50px; margin-bottom: 80px; box-shadow: 0 10px 30px rgba(26, 54, 93, 0.05); }
@@ -87,22 +174,164 @@ body {
 
         .card-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
         .card { width: calc(25% - 15px); border: 1px solid #eef2f6; border-radius: 12px; padding: 25px 20px; text-align: center; display: flex; flex-direction: column; background-color: #fafcfd; }
-        .card-icon { font-size: 2.8rem; color: var(--accent-blue); margin-bottom: 20px; height: 55px; }
-        .card h4 { font-size: 0.9rem; margin-bottom: 12px; line-height: 1.4; }
+        
+        .card .card-icon {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 2.8rem;
+            color: var(--accent-blue);
+        }
+
+        .card h4 {
+            height: 60px !important;
+            margin-top: 0 !important;
+            margin-bottom: 15px !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.4;
+            font-size: 0.9rem;
+        }
+
         .price-highlight { background-color: #fff8e1; color: var(--text-navy); font-weight: bold; padding: 6px; border-radius: 20px; margin-bottom: 15px; font-size: 0.85rem; }
         .price-highlight span { font-size: 1.2rem; color: var(--highlight); }
         .card p { font-size: 0.75rem; text-align: left; margin-bottom: 20px; color: #555; line-height: 1.6; }
         .btn-detail { margin-top: auto; display: block; background-color: var(--btn-color); color: var(--white); padding: 12px 0; border-radius: 25px; font-size: 0.85rem; font-weight: bold; }
 
-        /* 相談窓口（コンタクト）セクション */
-        .consult-section { background-color: var(--white); border-radius: 20px; padding: 50px; margin-bottom: 80px; text-align: center; box-shadow: 0 10px 30px rgba(26, 54, 93, 0.05); }
-        .consult-desc { font-size: 0.9rem; color: #555; margin-bottom: 30px; }
-        .consult-buttons { display: flex; justify-content: center; gap: 30px; }
-        .btn-consult { display: flex; align-items: center; justify-content: center; gap: 12px; width: 320px; padding: 18px 20px; border-radius: 12px; font-size: 1.05rem; font-weight: bold; color: var(--white); transition: all 0.3s ease; }
-        .btn-consult:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); opacity: 1; }
-        .btn-mail { background-color: var(--btn-color); }
-        .btn-line { background-color: var(--line-green); }
-        .btn-consult i { font-size: 1.6rem; }
+        /* FAQセクション（トップページ用） */
+        .faq-item {
+            background-color: #ffffff;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(26, 54, 93, 0.05);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item[open] { box-shadow: 0 6px 20px rgba(26, 54, 93, 0.1); }
+
+        .faq-question {
+            padding: 20px 25px;
+            font-weight: bold;
+            font-size: 1rem;
+            color: #1a365d;
+            cursor: pointer;
+            list-style: none;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question::-webkit-details-marker { display: none; }
+        .faq-question::after { content: '＋'; font-size: 1.2rem; color: #4a709c; transition: transform 0.3s ease; }
+        .faq-item[open] .faq-question::after { transform: rotate(45deg); color: #ff6b6b; }
+
+        .faq-answer {
+            padding: 0 25px 20px 25px;
+            font-size: 0.9rem;
+            color: #555555;
+            line-height: 1.8;
+            border-top: 1px solid #e6f0fa;
+            padding-top: 15px;
+        }
+
+        .btn-more-wrapper { text-align: center; margin-top: 40px; }
+        .btn-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            color: #4a709c;
+            text-decoration: none;
+            background-color: transparent;
+            border: 2px solid #4a709c;
+            padding: 14px 40px;
+            border-radius: 30px;
+            transition: 0.3s ease;
+        }
+
+        .btn-more:hover {
+            background-color: #4a709c;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 112, 156, 0.3);
+        }
+
+        /* ボット強制セクション */
+        .bot-first-section { background-color: var(--white); border-radius: 20px; padding: 60px 4%; margin-bottom: 80px; box-shadow: 0 10px 30px rgba(26, 54, 93, 0.05); }
+        .bot-first-container { max-width: 800px; margin: 0 auto; text-align: center; }
+        .bot-first-title { font-size: 1.5rem; color: var(--btn-color); margin-bottom: 15px; }
+        .bot-first-desc { font-size: 1rem; color: var(--text-navy); font-weight: bold; margin-bottom: 30px; line-height: 1.6; }
+
+        .primary-bot-wrapper { width: 100%; max-width: 450px; height: 600px; margin: 0 auto 40px auto; border: 4px solid var(--btn-color); border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(74, 112, 156, 0.2); background-color: #f5f8fa; }
+        .primary-bot-iframe { width: 100%; height: 100%; border: none; display: block; }
+
+        .after-bot-action { background-color: #fff8e1; border-left: 5px solid var(--highlight); padding: 25px; border-radius: 0 10px 10px 0; text-align: left; margin-bottom: 40px; }
+        .after-bot-action h3 { color: var(--highlight); margin-bottom: 10px; font-size: 1.2rem; }
+        .after-bot-action p { font-size: 0.95rem; color: #333; line-height: 1.7; }
+
+        .last-resort-contact { text-align: left; background-color: #f8f9fa; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; }
+        .last-resort-contact summary { padding: 15px 20px; font-size: 0.85rem; color: #666; cursor: pointer; font-weight: bold; list-style: none; }
+        .last-resort-contact summary::-webkit-details-marker { display: none; }
+        .last-resort-contact summary:hover { background-color: #f1f3f5; }
+        .last-resort-content { padding: 20px; border-top: 1px solid #ddd; background-color: #fff; text-align: center; }
+        .warning-text { font-size: 0.85rem; color: #d9534f; font-weight: bold; margin-bottom: 15px; }
+        
+        .btn-last-resort { display: inline-flex; align-items: center; gap: 8px; background-color: #6c757d; color: white; padding: 10px 25px; border-radius: 5px; font-size: 0.9rem; font-weight: bold; text-decoration: none; transition: 0.3s; }
+        .btn-last-resort:hover { background-color: #5a6268; }
+
+        /* ヘッダーの特設タブ */
+     /* ＝＝＝ ヘッダーの特設タブ（せきまるアイコン付き） ＝＝＝ */
+        .nav-highlight {
+            background-color: var(--highlight) !important;
+            color: var(--white) !important;
+            padding: 5px 20px 5px 12px !important; /* 左側はアイコンがあるので少し狭く */
+            border-radius: 30px;
+            font-size: 0.95rem !important;
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+            transition: all 0.3s ease;
+            display: inline-flex !important;
+            align-items: center;
+            gap: 8px; /* アイコンと文字の隙間 */
+        }
+        
+        .nav-seki-icon {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+        }
+
+        .nav-highlight:hover {
+            background-color: var(--btn-color) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(74, 112, 156, 0.4);
+            opacity: 1 !important;
+        }
+
+        /* 常設フロートボタン */
+        .floating-navi-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--highlight);
+            color: var(--white);
+            padding: 18px 35px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+            cursor: pointer;
+            z-index: 9998;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+        .floating-navi-btn:hover { transform: translateY(-5px); background-color: var(--btn-color); }
 
         /* MOVIEセクション */
         .movie-section { text-align: center; margin-bottom: 100px; }
@@ -110,268 +339,53 @@ body {
         .video-wrapper iframe { width: 100%; height: 100%; border: none; display: block; }
         .channel-link { display: inline-block; margin-top: 25px; font-size: 0.95rem; font-weight: bold; color: var(--youtube-red); border-bottom: 2px solid var(--youtube-red); padding-bottom: 3px; }
 
-        /* 移住コンシェルジュ（ポップアップボタン） */
-        .concierge-popup { position: fixed; bottom: 30px; right: 30px; display: flex; align-items: flex-end; gap: 15px; z-index: 9998; animation: floatUp 1s ease-out; }
-        .concierge-bubble { background-color: var(--white); padding: 15px 20px; border-radius: 15px; font-size: 0.85rem; font-weight: bold; color: var(--text-navy); box-shadow: 0 10px 25px rgba(26, 54, 93, 0.1); position: relative; border: 1px solid #eef2f6; line-height: 1.4; }
-        .concierge-bubble::after { content: ""; position: absolute; top: 50%; right: -10px; transform: translateY(-50%); border-width: 10px 0 10px 10px; border-style: solid; border-color: transparent transparent transparent var(--white); }
-        .concierge-icon { width: 70px; height: 70px; background-color: var(--highlight); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: var(--white); font-size: 2rem; box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3); cursor: pointer; transition: transform 0.3s; }
-        .concierge-icon:hover { transform: scale(1.1); }
-        @keyframes floatUp { 0% { transform: translateY(50px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
-
-        /* チャットウィンドウ（パソコン用） */
-        /* チャットウィンドウ（パソコン用） */
-       /* チャットウィンドウ（パソコン用） */
-        .chat-window { 
-            position: fixed; 
-            bottom: 110px; 
-            right: 30px; 
-            width: 400px; 
-            height: 650px; 
-            background-color: var(--white); 
-            border-radius: 20px; 
-            box-shadow: 0 15px 40px rgba(26, 54, 93, 0.15); 
-            display: flex; 
-            flex-direction: column; 
-            z-index: 9999; 
-            overflow: hidden; 
-            opacity: 0; 
-            visibility: hidden; 
-            transform: translateY(20px); 
-            transition: all 0.3s ease; 
-        }
-        .chat-window.show { opacity: 1; visibility: visible; transform: translateY(0); }
-        
-        .chat-header { 
-            background-color: var(--btn-color); 
-            color: var(--white); 
-            padding: 15px 20px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            font-weight: bold; 
-            font-size: 0.95rem; 
-        }
-        .chat-close-btn { background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; transition: 0.3s; }
-        .chat-close-btn:hover { opacity: 0.7; }
-        
-        .chat-iframe { flex: 1; width: 100%; border: none; background-color: #f5f8fa; }
-
-        /* レスポンシブ対応 */
         @media (max-width: 900px) {
             .about-inner { flex-direction: column-reverse; gap: 40px; }
             .about-text { text-align: center; }
-            .card { width: calc(50% - 10px); } 
-            .global-nav ul { flex-wrap: wrap; gap: 15px; }
-            .consult-buttons { flex-direction: column; align-items: center; gap: 15px; }
-            .btn-consult { width: 100%; max-width: 350px; }
+            .card { width: calc(50% - 10px); }
         }
         
-        /* スマホ表示用の調整 */
-        @media (max-width: 500px) {
-            .tab-list {
-                flex-wrap: wrap;
-                gap: 10px;
+        /* 📱 レスポンシブ：画面が狭いときの上部固定バナーの調整 */
+        @media (max-width: 768px) {
+            .top-shortcut-banner {
+                flex-direction: column;
+                gap: 8px;
+                padding: 10px;
+                text-align: center;
             }
-            .tab-item {
-                flex: 0 0 calc(50% - 5px);
-                font-size: 0.85rem;
-                padding: 10px 0;
-            }
-
-            .card { width: 100%; } 
-            .concierge-bubble { display: none; }
-            .concierge-popup { bottom: 15px; right: 15px; }
-            .concierge-icon { width: 55px; height: 55px; font-size: 1.5rem; }
+            .banner-text { font-size: 0.75rem; line-height: 1.3; }
+            .btn-banner-nav { font-size: 0.75rem; padding: 4px 15px; }
             
-            .chat-window { 
-                width: 94%;           
-                right: 3%;            
-                bottom: 85px;         
-                height: 80vh;         
-                max-height: 700px;    
-            }
-        }
-        /* ＝＝＝ ここからカードの高さ強制統一 ＝＝＝ */
-        /* ① アイコンのエリアを同じ高さに固定 */
-        .card .card-icon,
-        .card img {
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
+            /* バナーが縦並びになって高くなる分、下の位置をさらに下げる */
+            header { top: 72px; }
+            body { padding-top: 160px; }
         }
 
-        /* ② タイトルをh3でもh4でも強制的に同じ高さに固定 */
-        .card h3, 
-        .card h4, 
-        .card .card-title {
-            height: 60px !important; /* 強制的に60pxにする魔法の言葉 */
-            margin-top: 0 !important;
-            margin-bottom: 15px !important;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 1.4;
+        @media (max-width: 500px) {
+            .tab-list { flex-wrap: wrap; gap: 10px; }
+            .tab-item { flex: 0 0 calc(50% - 5px); font-size: 0.85rem; padding: 10px 0; }
+            .card { width: 100%; }
+            .floating-navi-btn { bottom: 15px; right: 15px; left: 15px; justify-content: center; padding: 15px 20px; font-size: 1rem; }
         }
-        /* ＝＝＝ ここまで ＝＝＝ */
-        /* ＝＝＝ メニューの文字を強制的に横一列にする ＝＝＝ */
-        header nav,
-        header ul,
-        header .nav-links,
-        header .menu {
-            display: flex !important;
-            flex-direction: row !important; /* 強制的に横一列にする */
-            align-items: center !important;
-            list-style: none !important; /* メニューの「・」を消す */
-            gap: 25px; /* 文字と文字の間のちょうどいい隙間（お好みで調整OK） */
-            margin: 0;
-            padding: 0;
-        }
-
-        header li {
-            display: inline-block !important;
-        }
-        /* ＝＝＝ メニューの文字を少し大きく、見やすくする ＝＝＝ */
-        header a {
-            font-size: 1.1rem !important; /* 標準より少し大きめ（お好みで1.2remなどに変更OK） */
-            font-weight: bold !important; /* 文字を少し太くしてハッキリさせる */
-        }
-        /* ヒーローセクションのデザイン */
-.hero-section {
-    height: 60vh; /* 画面の高さの60%（お好みで変更OK） */
-    /* ↓ダミー画像ではなく、ご自身で用意した下関の写真ファイル名に書き換えてください！ */
-    background-image: url('shimonoseki_top.jpg'); 
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-    position: relative;
-    margin-bottom: 50px;
-}
-
-/* 写真の上の白い文字を読みやすくするために、少し暗いフィルターをかける */
-.hero-section::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-}
-
-.hero-content {
-    position: relative;
-    z-index: 1;
-}
-
-.hero-content h2 {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-}
-
-.hero-content p {
-    font-size: 1.1rem;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
-}
-/* ＝＝＝ FAQアコーディオンのデザイン（トップページ用） ＝＝＝ */
-.faq-item {
-    background-color: #ffffff;
-    border-radius: 12px;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 15px rgba(26, 54, 93, 0.05);
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.faq-item[open] {
-    box-shadow: 0 6px 20px rgba(26, 54, 93, 0.1);
-}
-
-.faq-question {
-    padding: 20px 25px;
-    font-weight: bold;
-    font-size: 1rem;
-    color: #1a365d;
-    cursor: pointer;
-    list-style: none;
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.faq-question::-webkit-details-marker { display: none; }
-
-.faq-question::after {
-    content: '＋';
-    font-size: 1.2rem;
-    color: #4a709c;
-    transition: transform 0.3s ease;
-}
-
-.faq-item[open] .faq-question::after {
-    transform: rotate(45deg);
-    color: #ff6b6b;
-}
-
-.faq-answer {
-    padding: 0 25px 20px 25px;
-    font-size: 0.9rem;
-    color: #555555;
-    line-height: 1.8;
-    border-top: 1px solid #e6f0fa;
-    padding-top: 15px;
-}
-
-/* ＝＝＝ 「さらに表示」ボタンのデザイン ＝＝＝ */
-.btn-more-wrapper {
-    text-align: center;
-    margin-top: 40px;
-}
-
-.btn-more {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: bold;
-    color: #4a709c; /* 枠線と同じネイビーブルー */
-    text-decoration: none;
-    background-color: transparent;
-    border: 2px solid #4a709c;
-    padding: 14px 40px;
-    border-radius: 30px;
-    transition: 0.3s ease;
-}
-
-/* マウスを乗せたときに色が反転して光る設定 */
-.btn-more:hover {
-    background-color: #4a709c;
-    color: #ffffff;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(74, 112, 156, 0.3);
-}
     </style>
 </head>
 <body>
-    <div class="hero-section">
-    <div class="hero-content">
-        <h2>下関で、新しい暮らしを始めよう。</h2>
-        <p>海と歴史が交差する街で見つける、あなたらしい生き方</p>
-    </div>
-</div>
 
-    <header class="site-header container">
+   <!-- 🌟 スッキリ版：最上部バナー -->
+    <div class="top-shortcut-banner">
+        <span class="banner-text"><i class="fa-solid fa-circle-info"></i> 移住のご相談は、まず「移住相談ナビ」での自己診断をお願いします</span>
+        <a href="#consult" class="btn-banner-nav">移住相談ナビへ <i class="fa-solid fa-angle-right"></i></a>
+    </div>
+
+  <header class="site-header container">
         <h1 class="site-title">SHIMONOSEKI LIFE</h1>
         <nav class="global-nav">
             <ul>
                 <li><a href="#about">ABOUT</a></li>
                 <li><a href="#support">SUPPORT</a></li>
-                <li><a href="#consult">CONSULT</a></li>
-                <li><a href="#movie">MOVIE</a></li>
+                
                 <li><a href="faq.html">FAQ</a></li>
+                <!-- ※重複していた赤いボタンは削除しました！ -->
             </ul>
         </nav>
     </header>
@@ -388,19 +402,16 @@ body {
                 </p>
                 <a href="charm.html" class="btn-text">下関の魅力をさらに見る ＞</a>
             </div>
-            
-            <!-- ★変更箇所：ABOUTセクションの画像 -->
             <div class="about-image">
-                <!-- ご自身の写真に変更する場合は、この src="..." の中をご自身の画像ファイル名（例: src="shimonoseki.jpg"）に書き換えてください -->
                 <img src="fish_fugu_haku.png" alt="下関の美しい風景">
             </div>
-            
         </div>
     </section>
 
     <main class="container">
-        <!-- 中略：支援制度や動画などのコードはそのまま維持しています -->
+
         <section class="support-section" id="support">
+            <div class="step-wrapper"><div class="step-header">STEP 1: 制度を見る</div></div>
             <h2 class="section-title">あなたをサポートする支援制度</h2>
             
             <ul class="tab-list">
@@ -448,7 +459,7 @@ body {
                     <div class="card">
                         <div class="card-icon"><i class="fa-solid fa-house-user"></i></div>
                         <h4>暮らしサポート補助金<br>（家賃補助）</h4>
-                        <div class="price-highlight">月額 <span>１</span>万円〜</div>
+                        <div class="price-highlight">月額 <span>1</span>万円〜</div>
                         <p>移住相談窓口等を通じてUIJターンした若者（世帯主が39歳以下）や子育て世帯（中学生以下）に対し、最長2年間の家賃の一部を助成し、新生活を後押しします。</p>
                         <a href="https://www.shimonosekicitypromotion.jp/123148.html" target="_blank" rel="noopener noreferrer" class="btn-detail">詳しく見る</a>
                     </div>
@@ -483,7 +494,8 @@ body {
                         <h4>出産祝い金の支給</h4>
                         <div class="price-highlight">子1人につき <span>20</span>万円</div>
                         <p>豊浦、豊田及び豊北総合支所管内並びに蓋井島及び六連島内に定住する市民が、第3子以降の子を出産し、生計を同じくして6ヶ月以上養育した場合に支給します。<br>※豊浦総合支所管内は令和4年4月1日以降の出産が対象。</p>
-                        <a href="#" class="btn-detail">詳しく見る</a>
+                        <!-- 👇 ここにリンクが入りました！ -->
+                        <a href="https://www.city.shimonoseki.lg.jp/soshiki/6/1048.html#baby" target="_blank" rel="noopener noreferrer" class="btn-detail">詳しく見る</a>
                     </div>
                 </div>
             </div>
@@ -513,103 +525,79 @@ body {
                     </div>
                 </div>
             </div>
-
         </section>
-<!-- ＝＝＝ トップページ用ミニFAQセクション ＝＝＝ -->
-    <section class="top-faq-section" style="margin: 80px 0;">
-        <div class="faq-container" style="max-width: 800px; margin: 0 auto; padding: 0 20px;">
-            <h2 style="text-align: center; font-size: 2rem; color: #1a365d; margin-bottom: 40px; letter-spacing: 0.1em;">
-                FAQ<span style="display: block; font-size: 0.9rem; font-weight: bold; color: #4a709c; margin-top: 5px;">よくある質問</span>
-            </h2>
 
-            <!-- 質問1 -->
-            <details class="faq-item">
-                <summary class="faq-question">東京から移住するとお金がもらえると聞きました。</summary>
-                <div class="faq-answer">
-                    <p>東京23区に在住または通勤していた方が下関市へ移住し、就業や創業などの要件を満たす場合、単身で60万円、世帯で100万円（18歳未満の帯同者1人につき100万円加算）の「移住支援金」が支給される可能性があります。<br>
-                   <span style="color: red;">※要件は細かく定められています。受給を約束するものではなく、詳細は要綱・HPでご確認ください。</span></p>
+        <section class="top-faq-section" style="margin: 80px 0;">
+            <div class="faq-container" style="max-width: 800px; margin: 0 auto; padding: 0 20px;">
+                <div class="step-wrapper"><div class="step-header" style="background-color: var(--btn-color);">STEP 2: よくある質問で解決</div></div>
+                <h2 style="text-align: center; font-size: 2rem; color: #1a365d; margin-bottom: 40px; letter-spacing: 0.1em;">
+                    FAQ<span style="display: block; font-size: 0.9rem; font-weight: bold; color: #4a709c; margin-top: 5px;">よくある質問</span>
+                </h2>
+
+                <details class="faq-item">
+                    <summary class="faq-question">東京から移住するとお金がもらえると聞きました。</summary>
+                    <div class="faq-answer">
+                        <p>東京23区に在住または通勤していた方が下関市へ移住し、就業や創業などの要件を満たす場合、単身で60万円、世帯で100万円（18歳未満の帯同者1人につき100万円加算）の「移住支援金」が支給される可能性があります。<br>
+                       <span style="color: red;">※要件は細かく定められています。受給を約束するものではなく、詳細は要綱・HPでご確認ください。</span></p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-question">移住前に下関の暮らしを体験できますか？</summary>
+                    <div class="faq-answer">
+                        <p>2泊3日から4泊5日まで、宿泊料無料で利用できる「お試し暮らし」制度がございます（40歳未満の方が１人でも含まれる世帯が対象）。</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-question">申請書類はLiveHUBしものせきに持っていけば申請完了ですか？</summary>
+                    <div class="faq-answer">
+                        <p>いいえ、LiveHUBしものせきに持ってきても申請完了にはなりません。申請書は市役所・県庁へ提出してください。<br>
+                        ただし、YY！ターン支援交通費補助の実施報告書は LiveHUBしものせきにご提出ください。</p>
+                    </div>
+                </details>
+
+                <div class="btn-more-wrapper">
+                    <a href="faq.html" class="btn-more">よくある質問をさらに表示 <i class="fa-solid fa-angle-right"></i></a>
                 </div>
-            </details>
-
-            <!-- 質問2 -->
-            <details class="faq-item">
-                <summary class="faq-question">移住前に下関の暮らしを体験できますか？</summary>
-                <div class="faq-answer">
-                    <p>2泊3日から4泊5日まで、宿泊料無料で利用できる「お試し暮らし」制度がございます（40歳未満の方が１人でも含まれる世帯が対象）。</p>
-                </div>
-            </details>
-
-            <!-- 質問3 -->
-            <details class="faq-item">
-                <summary class="faq-question">申請書類はLiveHUBしものせきに持っていけば申請完了ですか？</summary>
-                <div class="faq-answer">
-                    <p>いいえ、LiveHUBしものせきに持ってきても申請完了にはなりません。申請書は市役所・県庁へ提出してください。<br>
-                    ただし、YY！ターン支援交通費補助の実施報告書は LiveHUBしものせきにご提出ください。</p>
-                </div>
-            </details>
-
-            <!-- 🌟 さらに表示ボタン 🌟 -->
-            <div class="btn-more-wrapper">
-                <a href="faq.html" class="btn-more">よくある質問をさらに表示 <i class="fa-solid fa-angle-right"></i></a>
-            </div>
-        </div>
-    </section>
-        <section class="consult-section" id="consult">
-            <h2 class="section-title">CONSULTATION<br><span style="font-size: 0.85rem; font-weight: normal; color: var(--accent-blue); letter-spacing: 0.1em; display: block; margin-top: 10px;">ご相談・お問い合わせ</span></h2>
-            <p class="consult-desc">移住に関する疑問や不安なことなど、お気軽にご相談ください。</p>
-            <div class="consult-buttons">
-              <a href="https://shimonoseki.works-go.com/form/f635312/" target="_blank" rel="noopener noreferrer" class="btn-consult btn-mail">
-                    <i class="fa-regular fa-envelope"></i>メールフォームで相談
-                </a>
-                <a href="https://page.line.me/932vzzcc?openQrModal=true" target="_blank" rel="noopener noreferrer" class="btn-consult btn-line">
-    <i class="fa-brands fa-line"></i>LINEチャットボットで相談
-</a>
             </div>
         </section>
 
-        <section class="movie-section" id="movie">
-            <h2 class="section-title">MOVIE</h2>
-            <p style="margin-bottom: 30px; font-size: 0.9rem;">しものせき移住のすすめ</p>
-            
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/fzg0FKdcxyA?rel=0" title="俺流移住、私流移住、下関" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <section class="bot-first-section" id="consult">
+            <div class="bot-first-container">
+                <div class="step-wrapper"><div class="step-header" style="background-color: var(--highlight);">STEP 3: 診断ナビで最終確認</div></div>
+                <h2 class="bot-first-title">あなたに合う制度をシミュレーション</h2>
+                <p class="bot-first-desc">
+                    窓口へご相談いただく前に、以下の診断ナビを必ずご利用ください。<br>
+                    ご自身が「どの制度の対象になるか」を数回のタップで判定できます。
+                </p>
+
+                <div class="primary-bot-wrapper">
+                    <iframe src="https://shimonosekicity.github.io/subsidy-chatbot/?node=migration" class="primary-bot-iframe" title="移住相談チャットボット"></iframe>
+                </div>
+
+                <details class="last-resort-contact">
+                    <summary>▶︎ 診断ナビを使っても解決しなかった方・具体的な支援に進む方はこちら</summary>
+                    <div class="last-resort-content">
+                        <p class="warning-text">【重要】LiveHUBしものせきでの伴走支援をご希望の方は、<br>必ず「診断ナビの判定結果（対象の制度名）」を控えたうえでご連絡ください。</p>
+                        <p style="font-size: 0.85rem; color: #555; margin-bottom: 20px;">※受給を確約するものではありません。最終的な要件確認は窓口で行います。</p>
+                        <a href="https://shimonoseki.works-go.com/form/f635312/" target="_blank" rel="noopener noreferrer" class="btn-last-resort">
+                            <i class="fa-regular fa-envelope"></i> 診断結果を持ってメールで相談する
+                        </a>
+                    </div>
+                </details>
             </div>
-            
-            <a href="https://www.youtube.com/@%E4%B8%8B%E9%96%A2%E5%B8%82%E3%82%B7%E3%83%86%E3%82%A3%E3%83%97%E3%83%AD%E3%83%A2%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E5%85%AC%E5%BC%8F" target="_blank" rel="noopener noreferrer" class="channel-link">
-                <i class="fa-brands fa-youtube" style="margin-right: 5px;"></i>下関市シティプロモーション公式チャンネルをもっと見る ＞
-            </a>
         </section>
+
+       
+      
     </main>
 
-    <div class="concierge-popup">
-        <div class="concierge-bubble">
-            あなたが対象になるか<br>簡単診断しませんか？
-        </div>
-        <div class="concierge-icon" id="chatTrigger">
-            <i class="fa-solid fa-headset"></i>
-        </div>
-    </div>
-
-    <div class="chat-window" id="chatWindow">
-        <div class="chat-header">
-            移住支援ボット
-            <button class="chat-close-btn" id="chatCloseBtn"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-  <iframe src="https://shimonosekicity.github.io/subsidy-chatbot/?node=migration" class="chat-iframe" title="移住相談チャットボット"></iframe>
+    <div class="floating-navi-btn" onclick="document.getElementById('consult').scrollIntoView({behavior: 'smooth'});">
+        <i class="fa-solid fa-magnifying-glass-chart"></i> 移住相談ナビで調べる
     </div>
 
     <script>
-        const chatTrigger = document.getElementById('chatTrigger');
-        const chatWindow = document.getElementById('chatWindow');
-        const chatCloseBtn = document.getElementById('chatCloseBtn');
-
-        chatTrigger.addEventListener('click', function() {
-            chatWindow.classList.add('show');
-        });
-        chatCloseBtn.addEventListener('click', function() {
-            chatWindow.classList.remove('show');
-        });
-
         const tabItems = document.querySelectorAll('.tab-item');
         const tabContents = document.querySelectorAll('.tab-content');
 
